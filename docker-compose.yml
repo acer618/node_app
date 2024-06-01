@@ -1,18 +1,28 @@
 version: '1.0'
 services:
-  db:
+  app:
+    build: .
+    depends_on:
+      - mysqldb
+    links:
+      - mysqldb
+    ports:
+      - 3000:3000
+
+  mysqldb:
     image: mysql:5.7
     restart: always
+    env_file: ./.env
     environment:
-      MYSQL_DATABASE: 'test_db'
-      MYSQL_USER: 'test_user'
-      MYSQL_PASSWORD: 'test_pwd'
-      MYSQL_ROOT_PASSWORD: 'root'
+      - MYSQL_DATABASE=$MYSQL_DATABASE
+      - MYSQL_USER=$MYSQL_USER
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
     ports:
-      - '3306:3306'
+      - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
     expose:
-      # Opens port 3306 on the container
-      - '3306'
+      # Opens port on the container
+      - $MYSQL_DOCKER_PORT
       # Where our data will be persisted
     volumes:
       - mysql-db:/var/lib/mysql
