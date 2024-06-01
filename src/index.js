@@ -1,20 +1,20 @@
 var express = require('express');
-var createPool = require('mysql2/promise');
+var mysql = require('mysql2');
 var config = require('dotenv');
 
 var app = express();
 
-const pool = createPool({
+const pool = mysql.createPool({
   host: process.env.MYSQL_HOST,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   port: process.env.MYSQL_DOCKER_PORT,
 });
 
-pool.on("connection, () => console.log("DB Connected!"));
+pool.on("connection", () => console.log("DB Connected!"));
 
 app.get('/ping', function (req, res) {
-  const result = await pool.query("SELECT NOW()");
+  const result = pool.query("SELECT NOW()");
   res.json(result[0]);
 });
 
