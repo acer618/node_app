@@ -11,7 +11,8 @@ services:
 
   mysqldb:
     image: mysql:5.7
-    #restart: always
+    # https://faztweb.com/contenido/docker-compose-nodejs-y-mysql
+    #restart: always | unless-stopped
     env_file: ./.env
     environment:
       - MYSQL_DATABASE=$MYSQL_DATABASE
