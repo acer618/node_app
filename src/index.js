@@ -13,7 +13,7 @@ const pool = mysql.createPool({
 
 pool.on("connection", () => console.log("DB Connected!"));
 
-app.get('/ping', function (req, res) {
+app.get('/ping', async function (req, res) {
   const result = await pool.query("SELECT NOW()");
   res.json(result[0]);
 });
