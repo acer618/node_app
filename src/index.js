@@ -1,8 +1,8 @@
-var express = require('express');
-var mysql = require('mysql2');
-var config = require('dotenv');
+const express = require('express');
+const mysql = require('mysql2/promise');
+const config = require('dotenv');
 
-var app = express();
+const app = express();
 
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST,
@@ -14,7 +14,7 @@ const pool = mysql.createPool({
 pool.on("connection", () => console.log("DB Connected!"));
 
 app.get('/ping', function (req, res) {
-  const result = pool.query("SELECT NOW()");
+  const result = await pool.query("SELECT NOW()");
   res.json(result[0]);
 });
 
@@ -34,8 +34,10 @@ app.get('/users/:id', function (req, res) {
   res.send({ id, name:'John'});
 });
 
-app.listen(process.env.NODE_DOCKER_PORT || 3000);
-console.log("Server on port", process.env.NODE_DOCKER_PORT || 3000);
+const port = process.env.NODE_DOCKER_PORT || 3000;
+app.listen(port, () => { 
+  console.log("Server on port", port);
+});
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
