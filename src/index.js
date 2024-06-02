@@ -9,6 +9,7 @@ const pool = mysql.createPool({
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   port: process.env.MYSQL_DOCKER_PORT,
+  database:"test_db",
 });
 
 pool.on("connection", () => console.log("DB Connected!"));
