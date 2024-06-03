@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
-const config = require('dotenv');
+const config = require('dotenv').config()
+
 
 const app = express();
 
@@ -9,7 +10,7 @@ const pool = mysql.createPool({
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   port: process.env.MYSQL_DOCKER_PORT,
-  database:"test_db",
+  database: process.env.MYSQL_DATABASE,
 });
 
 pool.on("connection", () => console.log("DB Connected!"));
