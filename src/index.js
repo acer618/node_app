@@ -5,6 +5,12 @@ const config = require('dotenv').config()
 
 const app = express();
 
+console.log(process.env.MYSQL_HOST);
+console.log(process.env.MYSQL_USER);
+console.log(process.env.MYSQL_PASSWORD);
+console.log(process.env.MYSQL_DOCKER_PORT);
+console.log(process.env.MYSQL_DATABASE);
+
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST,
   user: process.env.MYSQL_USER,
