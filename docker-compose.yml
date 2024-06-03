@@ -6,6 +6,7 @@ services:
       - mysqldb
     links:
       - mysqldb
+    env_file: ./.env
     ports:
       - 3000:3000
 
