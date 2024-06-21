@@ -12,7 +12,8 @@ console.log(process.env.MYSQL_DOCKER_PORT);
 console.log(process.env.MYSQL_DATABASE);
 
 const pool = mysql.createPool({
-  host: process.env.MYSQL_HOST,
+  // Name of the Mysql service in docker-compose mysqldb 
+  host: process.env.MYSQL_HOST, 
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   port: process.env.MYSQL_DOCKER_PORT,
